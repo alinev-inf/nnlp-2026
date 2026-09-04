@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f5f1" />
+  <title>NLP Away Day</title>
+  <meta name="description" content="NLP Away Day — talks, collaboration and AI for Humans and Health activities." />
+
+  
+  <style>
+    :root{
+      --ink:#202421;
+      --muted:#6f756f;
+      --paper:#f6f5f1;
+      --surface:#ffffff;
+      --line:#dedfd9;
+      --accent:#3f6658;
+      --accent-soft:#e8efeb;
+      --warm:#8a6a45;
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--paper);
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:16px;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .wrap{
+      width:min(1040px, calc(100% - 48px));
+      margin:0 auto;
+    }
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(246,245,241,.94);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav-inner{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:1.06rem;
+      font-weight:700;
+      letter-spacing:-.01em;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:24px;
+      align-items:center;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:.88rem;
+      font-weight:600;
+    }
+
+    .nav-links a:hover{color:var(--ink)}
+
+    header{
+      padding:104px 0 82px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:0;
+      border:0;
+      background:transparent;
+      border-radius:0;
+      color:var(--accent);
+      font-size:.76rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:none;
+    }
+
+    h1{
+      max-width:840px;
+      margin:22px 0 24px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(3.4rem, 8vw, 6.6rem);
+      font-weight:400;
+      line-height:.96;
+      letter-spacing:-.045em;
+    }
+
+    .gradient{
+      color:var(--accent);
+      background:none;
+      -webkit-text-fill-color:currentColor;
+    }
+
+    .lead{
+      max-width:700px;
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(1.05rem, 2vw, 1.22rem);
+      line-height:1.7;
+    }
+
+    .hero-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 22px;
+      margin-top:34px;
+    }
+
+    .pill{
+      position:relative;
+      padding:0 0 0 15px;
+      border:0;
+      background:transparent;
+      border-radius:0;
+      box-shadow:none;
+      color:#4e554f;
+      font-size:.9rem;
+      font-weight:600;
+    }
+
+    .pill::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.62em;
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+
+    main{padding:82px 0 96px}
+
+    .section-head{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:44px;
+      align-items:end;
+      margin:0 0 38px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(2.2rem, 4vw, 3.4rem);
+      font-weight:400;
+      letter-spacing:-.03em;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .schedule{
+      border-top:1px solid var(--line);
+    }
+
+    .slot{
+      display:grid;
+      grid-template-columns:150px 1fr;
+      gap:34px;
+      padding:26px 0;
+      border-bottom:1px solid var(--line);
+      align-items:start;
+    }
+
+    .time{
+      padding:2px 0 0;
+      color:#555c57;
+      font-size:.9rem;
+      font-weight:700;
+      text-align:left;
+      letter-spacing:.01em;
+      white-space:nowrap;
+    }
+
+    .event{
+      position:relative;
+      padding:0 0 0 22px;
+      border:0;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      overflow:visible;
+      transition:none;
+    }
+
+    .event:hover{
+      transform:none;
+      box-shadow:none;
+    }
+
+    .event::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:4px;
+      bottom:4px;
+      width:2px;
+      background:#b9beb9;
+    }
+
+    .event.break::before{background:#c6ad8e}
+    .event.health::before{background:var(--accent);width:3px}
+    .event.wrapup::before{background:#7d8f87}
+
+    .event h3{
+      margin:2px 0 5px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:1.35rem;
+      font-weight:400;
+      letter-spacing:-.015em;
+    }
+
+    .event p{
+      max-width:720px;
+      margin:0;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .event .tag{
+      display:block;
+      margin:0 0 4px;
+      color:#777d78;
+      font-size:.7rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .event.health{
+      margin:-8px 0;
+      padding:18px 22px 18px 24px;
+      background:var(--accent-soft);
+      border-radius:var(--radius);
+    }
+
+    .event.health::before{
+      top:18px;
+      bottom:18px;
+      left:0;
+    }
+
+    .event.health .tag{color:var(--accent)}
+    .event.break .tag{color:var(--warm)}
+    .event.wrapup .tag{color:#5d746a}
+
+    .feature{
+      margin-top:76px;
+      padding:52px 0 8px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:70px;
+      color:var(--ink);
+      background:transparent;
+      border-top:1px solid var(--line);
+      border-radius:0;
+      box-shadow:none;
+    }
+
+    .feature h2{
+      margin:0 0 18px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(2.2rem, 4vw, 3.4rem);
+      font-weight:400;
+      line-height:1.06;
+      letter-spacing:-.035em;
+    }
+
+    .feature p{
+      max-width:620px;
+      margin:0;
+      color:var(--muted);
+    }
+
+    .feature-list{
+      display:grid;
+      gap:0;
+      border-top:1px solid var(--line);
+    }
+
+    .mini{
+      padding:18px 0;
+      border:0;
+      border-bottom:1px solid var(--line);
+      border-radius:0;
+      background:transparent;
+    }
+
+    .mini strong{
+      display:block;
+      margin-bottom:3px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:1.08rem;
+      font-weight:400;
+    }
+
+    .mini span{
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    footer{
+      padding:0 0 42px;
+      color:var(--muted);
+      font-size:.86rem;
+    }
+
+    .footer-card{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      padding-top:22px;
+      border-top:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:760px){
+      .wrap{width:min(100% - 30px, 1040px)}
+      nav{position:static}
+      .nav-links{display:none}
+      header{padding:70px 0 58px}
+      main{padding:58px 0 72px}
+      .section-head{grid-template-columns:1fr;gap:14px}
+      .slot{grid-template-columns:1fr;gap:8px;padding:22px 0}
+      .time{font-size:.83rem}
+      .event{padding-left:18px}
+      .event.health{margin:0;padding:18px 18px 18px 22px}
+      .feature{grid-template-columns:1fr;gap:34px;margin-top:58px;padding-top:42px}
+      .footer-card{display:block}
+      .footer-card span{display:block;margin-top:5px}
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav>
+    <div class="wrap nav-inner">
+      <div class="brand">NLP Away Day</div>
+      <div class="nav-links">
+        <a href="#programme">Programme</a>
+        <a href="#health">AI for Humans and Health</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span> Talks · Ideas · Collaboration</span>
+      <h1>NLP <span class="gradient">Away Day</span></h1>
+
+      <p class="lead">
+        A day for sharing work, exchanging ideas, building collaborations and exploring
+        how language technology can contribute to human-centred AI and health.
+      </p>
+
+      <div class="hero-meta">
+        <span class="pill">10:00–17:00</span>
+        <span class="pill">Talks & discussion</span>
+        <span class="pill">AI for Humans and Health</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section id="programme">
+      <div class="section-head">
+        <div><h2>Programme</h2></div>
+        <p>
+          A balanced day of short talks, informal discussion,
+          collaborative activities and time to connect.
+        </p>
+      </div>
+
+      <div class="schedule">
+
+        <div class="slot">
+          <div class="time">10:00–10:30</div>
+          <div class="event">
+            <div class="tag">Welcome</div>
+            <h3>Welcome and Introductions</h3>
+            <p>Welcome, aims for the day, quick introductions and overview of the programme.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">10:30–11:00</div>
+          <div class="event">
+            <div class="tag">Talk Session I</div>
+            <h3>NLP research talks</h3>
+            <p>Short presentations highlighting current projects, new ideas, results and open questions.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">11:00–11:15</div>
+          <div class="event break">
+            <div class="tag">Break</div>
+            <h3>Coffee & conversation</h3>
+            <p>Informal discussion and networking.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">11:15–12:00</div>
+          <div class="event">
+            <div class="tag">Professional Development</div>
+            <h3>Preparing for a Viva and Job Interviews</h3>
+            <p>Practical advice and discussion on preparing for a viva and approaching academic and professional job interviews.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">12:00–13:30</div>
+          <div class="event break">
+            <div class="tag">Lunch</div>
+            <h3>Lunch break</h3>
+            <p>Time to recharge, catch up and continue conversations informally.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">13:30–15:30</div>
+          <div class="event health">
+            <div class="tag">Featured Activity</div>
+            <h3>AI for Humans and Health</h3>
+            <p>
+              Interactive activities focused on human-centred AI, language technologies for health,
+              responsible innovation, interdisciplinary collaboration and new research opportunities.
+            </p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">15:30–15:45</div>
+          <div class="event break">
+            <div class="tag">Break</div>
+            <h3>Tea & coffee</h3>
+            <p>A short pause before the final session.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">15:45–16:15</div>
+          <div class="event">
+            <div class="tag">Skills Session</div>
+            <h3>Project Writing</h3>
+            <p>Practical discussion on developing research ideas into clear, compelling and well-structured project proposals.</p>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="time">16:30–17:00</div>
+          <div class="event wrapup">
+            <div class="tag">Closing</div>
+            <h3>Discussion, next steps & wrap-up</h3>
+            <p>Key takeaways, possible collaborations, follow-up actions and closing reflections.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="feature" id="health">
+      <div>
+        <h2>AI for Humans and Health</h2>
+        <p>
+          The afternoon collaborative session is designed to move from ideas to concrete
+          opportunities: identifying meaningful human and health challenges, considering
+          where NLP and AI can help, and shaping possible interdisciplinary projects.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <div class="mini">
+          <strong>13:30 · Explore</strong>
+          <span>Challenges, needs and research questions</span>
+        </div>
+        <div class="mini">
+          <strong>14:00 · Collaborate</strong>
+          <span>Small-group activities and idea development</span>
+        </div>
+        <div class="mini">
+          <strong>15:00 · Share</strong>
+          <span>Group feedback, opportunities and next steps</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer-card">
+      <span>NLP Away Day</span>
+      <span>10:00–17:00 · Talks, collaboration and human-centred AI</span>
+    </div>
+  </footer>
+</body>
+</html>
